@@ -1,3 +1,3 @@
 # clip2
 
-"kafka topic"
+kafka topic
