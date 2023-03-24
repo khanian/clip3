@@ -1,10 +1,10 @@
-package com.khany.kafka.clip2;
+package com.khany.kafka.clip3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Clip2ApplicationTests {
+class Clip3ApplicationTests {
 
     @Test
     void contextLoads() {
