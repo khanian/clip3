@@ -19,7 +19,7 @@ public class Clip3Application {
         return args -> {
             clipProducer.async("clip3", "Hello, Clip3-async.");
             clipProducer.sync("clip3", "Hello clip3-sync.");
-            Thread.sleep(1000L);
+            clipProducer.routingSend("clip3", "Hello clip3-routing");
         };
     }
 }
