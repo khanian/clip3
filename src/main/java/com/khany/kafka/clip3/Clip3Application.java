@@ -1,5 +1,6 @@
 package com.khany.kafka.clip3;
 
+import com.khany.kafka.clip3.producer.ClipProducer;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,9 +15,11 @@ public class Clip3Application {
     }
 
     @Bean
-    public ApplicationRunner runner(KafkaTemplate<String, String> kafkaTemplate) {
+    public ApplicationRunner runner(ClipProducer clipProducer) {
         return args -> {
-            kafkaTemplate.send("clip3", "Hello, Clip3");
+            clipProducer.async("clip3", "Hello, Clip3-async.");
+            clipProducer.sync("clip3", "Hello clip3-sync.");
+            Thread.sleep(1000L);
         };
     }
 }
