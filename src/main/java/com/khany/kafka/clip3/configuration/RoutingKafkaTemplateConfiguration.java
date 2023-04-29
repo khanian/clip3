@@ -1,6 +1,7 @@
 package com.khany.kafka.clip3.configuration;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +24,18 @@ public class RoutingKafkaTemplateConfiguration {
 
     private Map<Pattern, ProducerFactory<Object, Object>> factories() {
         Map<Pattern, ProducerFactory<Object, Object>> factories = new LinkedHashMap<>();
+        factories.put(Pattern.compile("clip3-bytes"), byteProducerFactory());
         factories.put(Pattern.compile(".*"), defaultProducerFactory());
 
         return factories;
     }
+
+    private ProducerFactory<Object, Object> byteProducerFactory() {
+        Map<String, Object> props = producerProps();
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, ByteArraySerializer.class);
+        return new DefaultKafkaProducerFactory<>(props);
+    }
+
 
     private ProducerFactory<Object, Object> defaultProducerFactory() {
         return new DefaultKafkaProducerFactory<>(producerProps());
